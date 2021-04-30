@@ -18,9 +18,11 @@
 * get familiar with Babel
 * get familiar with Netlify
 
-### My project's link :
-https://samantha-35.github.io/React-timer/
+### My project's link on Netlify:
+https://app.netlify.com/sites/elated-mestorf-1c3d53/overview
 
+### My project's link on Github : 
+https://samantha-35.github.io/React-timer/
 ## Show your support
 
 Give a ⭐️ if this project helped you!
