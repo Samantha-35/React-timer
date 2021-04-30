@@ -1,7 +1,7 @@
 ## React-timer
 
 <h1 align="center"> Hi there!</h1> 
-<h2 align="center"> Here is my React timer a.k.a as the Pomodor!</br>
+<h2 align="center"> Here is my React timer a.k.a  as the Pomodoro!</br>
 <p>
 
 
