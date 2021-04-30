@@ -29794,10 +29794,12 @@ function Pomodoro() {
     onClick: reset,
     className: "reset"
   }, "reset"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: incNum
+    onClick: incNum,
+    className: "incNum"
   }, "+"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: decNum
-  }, "-")), /*#__PURE__*/_react.default.createElement("div", {
+    onClick: decNum,
+    className: "decNum"
+  }, "-")), /*#__PURE__*/_react.default.createElement("div", null), /*#__PURE__*/_react.default.createElement("div", {
     className: "circle"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "circle-out"

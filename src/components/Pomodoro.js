@@ -105,10 +105,11 @@ alert("ZERO is the limit");
       </div> */}
        <div className="buttons">
          <button onClick={clickStart} className="pause">{isPaused ? "start":"pause"}</button>
-         <button onClick={reset} className="reset">reset</button>  
-        < button onClick = {incNum}>+</button> 
-        < button onClick ={decNum} >-</button> 
+         <button onClick={reset} className="reset">reset</button>
+            < button onClick = {incNum} className = "incNum">+</button> 
+            < button onClick ={decNum}  className = "decNum">-</button> 
       </div> 
+      <div></div>
 
       <div className="circle">
       {/* <h1>
