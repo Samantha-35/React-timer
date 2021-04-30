@@ -29671,6 +29671,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 // export const Hello = () => {
 //    return <p>{"Hello, World !"}</p>;
 // }
+// below are the flags ( its a state, gives info)
+// useState is like a function (it's a hook)
 function Pomodoro() {
   var _useState = (0, _react.useState)(25),
       _useState2 = _slicedToArray(_useState, 2),
@@ -29687,7 +29689,7 @@ function Pomodoro() {
       displayMessage = _useState6[0],
       setDisplayMessage = _useState6[1];
 
-  var _useState7 = (0, _react.useState)(5),
+  var _useState7 = (0, _react.useState)(6),
       _useState8 = _slicedToArray(_useState7, 2),
       num = _useState8[0],
       setNum = _useState8[1];
@@ -29705,8 +29707,21 @@ function Pomodoro() {
   var _useState13 = (0, _react.useState)(true),
       _useState14 = _slicedToArray(_useState13, 2),
       isPaused = _useState14[0],
-      setIsPaused = _useState14[1]; //these are flags
+      setIsPaused = _useState14[1]; // use effet is a hook, it's an internal function. Anything starting with useEffect is a Hook. You can also do your own hooks( custom hooks)
 
+
+  (0, _react.useEffect)(function () {
+    if (firstRender == true) {
+      setfirstRender(false);
+      return;
+    }
+
+    if (isPaused == true) {
+      return;
+    }
+
+    StartTimer();
+  }, [seconds, isCliked, isPaused]); //  Above are the hook's dependencies ( into brackets) 
 
   var StartTimer = function StartTimer() {
     var interval = setInterval(function () {
@@ -29722,7 +29737,7 @@ function Pomodoro() {
           var _seconds = 59;
           setSeconds(_seconds);
           setMinutes(_minutes);
-          setDisplayMessage(displayMessage);
+          setDisplayMessage(displayMessage); //above I call my functions.
         }
       } else {
         setSeconds(seconds - 1);
@@ -29731,18 +29746,6 @@ function Pomodoro() {
   }; // the useEffect is executed in the first rendering by default
 
 
-  (0, _react.useEffect)(function () {
-    if (firstRender == true) {
-      setfirstRender(false);
-      return;
-    }
-
-    if (isPaused == true) {
-      return;
-    }
-
-    StartTimer();
-  }, [seconds, isCliked, isPaused]);
   var timerMinutes = minutes < 10 ? "0".concat(minutes) : minutes;
   var timerSeconds = seconds < 10 ? "0".concat(seconds) : seconds;
 
@@ -29793,13 +29796,15 @@ function Pomodoro() {
   }, isPaused ? "start" : "pause"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: reset,
     className: "reset"
-  }, "reset"), /*#__PURE__*/_react.default.createElement("button", {
+  }, "reset"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "incButtons"
+  }, /*#__PURE__*/_react.default.createElement("button", {
     onClick: incNum,
     className: "incNum"
   }, "+"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: decNum,
     className: "decNum"
-  }, "-")), /*#__PURE__*/_react.default.createElement("div", null), /*#__PURE__*/_react.default.createElement("div", {
+  }, "-"))), /*#__PURE__*/_react.default.createElement("div", {
     className: "circle"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "circle-out"
@@ -29861,7 +29866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34759" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35057" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -8,16 +8,31 @@ import "../css/style.css";
 //    return <p>{"Hello, World !"}</p>;
 // }
 
+// below are the flags ( its a state, gives info)
+// useState is like a function (it's a hook)
 export function Pomodoro(){
    const[minutes, setMinutes] = useState(25);
    const[seconds, setSeconds] = useState(0);
    const[displayMessage, setDisplayMessage] = useState(false);
-   const[num, setNum] = useState(5);
+   const[num, setNum] = useState(6);
    const[firstRender, setfirstRender] = useState(true);
    const[isCliked, setisCliked] = useState(false);
    const[isPaused, setIsPaused] = useState(true);
 
-//these are flags
+
+// use effet is a hook, it's an internal function. Anything starting with useEffect is a Hook. You can also do your own hooks( custom hooks)
+   useEffect(() => {
+      if (firstRender == true) {
+       setfirstRender(false);
+      return 
+      }
+      if (isPaused == true){
+          return   
+      }
+      StartTimer();     
+    }, [seconds, isCliked, isPaused]); 
+   //  Above are the hook's dependencies ( into brackets) 
+
 
 
 let StartTimer = ()=>{
@@ -34,7 +49,8 @@ let StartTimer = ()=>{
           
           setSeconds(seconds);
           setMinutes(minutes);
-          setDisplayMessage(displayMessage);
+          setDisplayMessage(displayMessage);  
+          //above I call my functions.
          }
        }else{
           setSeconds(seconds-1);
@@ -43,17 +59,6 @@ let StartTimer = ()=>{
 
 }
 // the useEffect is executed in the first rendering by default
-   useEffect(() => {
-     if (firstRender == true) {
-      setfirstRender(false);
-     return 
-     }
-     if (isPaused == true){
-         return   
-     }
-     StartTimer();     
-   }, [seconds, isCliked, isPaused]); 
-
    const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
    const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
@@ -106,10 +111,11 @@ alert("ZERO is the limit");
        <div className="buttons">
          <button onClick={clickStart} className="pause">{isPaused ? "start":"pause"}</button>
          <button onClick={reset} className="reset">reset</button>
+         <div className = "incButtons" >
             < button onClick = {incNum} className = "incNum">+</button> 
             < button onClick ={decNum}  className = "decNum">-</button> 
+         </div>
       </div> 
-      <div></div>
 
       <div className="circle">
       {/* <h1>
