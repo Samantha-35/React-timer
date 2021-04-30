@@ -129,11 +129,17 @@ p{
 }
 
 .incNum{
-
-    margin-top: 550px;
+margin-top: 550px;
+border: solid 2px green;
+border-radius: 50%;
+background-color: transparent;
 }
 .decNum{
     margin-top: 550px;
+    border: 2px solid green;
+    border-radius: 50%;
+    background-color: transparent;
+    margin-left: 2px;
 }
 
 /*# sourceMappingURL=/app.c328ef1a.css.map */
