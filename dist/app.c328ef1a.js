@@ -29566,36 +29566,272 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/hello.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/style.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Pomodoro.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Hello = void 0;
+exports.Pomodoro = Pomodoro;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactDom = require("react-dom");
 
-var Hello = function Hello() {
-  return /*#__PURE__*/_react.default.createElement("p", null, "Hello, World !");
-};
+require("../css/style.css");
 
-exports.Hello = Hello;
-},{"react":"../node_modules/react/index.js"}],"app.js":[function(require,module,exports) {
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+// export const Hello = () => {
+//    return <p>{"Hello, World !"}</p>;
+// }
+function Pomodoro() {
+  var _useState = (0, _react.useState)(25),
+      _useState2 = _slicedToArray(_useState, 2),
+      minutes = _useState2[0],
+      setMinutes = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      seconds = _useState4[0],
+      setSeconds = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      displayMessage = _useState6[0],
+      setDisplayMessage = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(5),
+      _useState8 = _slicedToArray(_useState7, 2),
+      num = _useState8[0],
+      setNum = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(true),
+      _useState10 = _slicedToArray(_useState9, 2),
+      firstRender = _useState10[0],
+      setfirstRender = _useState10[1];
+
+  var _useState11 = (0, _react.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      isCliked = _useState12[0],
+      setisCliked = _useState12[1];
+
+  var _useState13 = (0, _react.useState)(true),
+      _useState14 = _slicedToArray(_useState13, 2),
+      isPaused = _useState14[0],
+      setIsPaused = _useState14[1]; //these are flags
+
+
+  var StartTimer = function StartTimer() {
+    var interval = setInterval(function () {
+      clearInterval(interval);
+
+      if (seconds === 0) {
+        if (minutes !== 0) {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        } else {
+          var _minutes = displayMessage ? 24 : 4;
+
+          var _seconds = 59;
+          setSeconds(_seconds);
+          setMinutes(_minutes);
+          setDisplayMessage(displayMessage);
+        }
+      } else {
+        setSeconds(seconds - 1);
+      }
+    }, 1000);
+  }; // the useEffect is executed in the first rendering by default
+
+
+  (0, _react.useEffect)(function () {
+    if (firstRender == true) {
+      setfirstRender(false);
+      return;
+    }
+
+    if (isPaused == true) {
+      return;
+    }
+
+    StartTimer();
+  }, [seconds, isCliked, isPaused]);
+  var timerMinutes = minutes < 10 ? "0".concat(minutes) : minutes;
+  var timerSeconds = seconds < 10 ? "0".concat(seconds) : seconds;
+
+  function clickStart() {
+    setisCliked(true);
+    setIsPaused(!isPaused);
+  }
+
+  function reset() {
+    setMinutes(25);
+    setSeconds(0);
+    setIsPaused(true);
+  }
+
+  var incNum = function incNum() {
+    console.log("click");
+    setMinutes(minutes + 1);
+  };
+
+  var decNum = function decNum() {
+    if (minutes > 0) {
+      setMinutes(minutes - 1);
+    } else {
+      alert("ZERO is the limit");
+      setMinutes(0);
+    }
+
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+      className: "main_div"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "center_div"
+    }, /*#__PURE__*/_react.default.createElement("h2", null, num), /*#__PURE__*/_react.default.createElement("div", {
+      className: "btn_div"
+    }, /*#__PURE__*/_react.default.createElement("button", {
+      onClick: incNum
+    }, "More"), /*#__PURE__*/_react.default.createElement("button", {
+      onClick: true
+    }, "Less")))));
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "pomodoro"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "buttons"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    onClick: clickStart,
+    className: "pause"
+  }, isPaused ? "start" : "pause"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: reset,
+    className: "reset"
+  }, "reset"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: incNum
+  }, "+"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: decNum
+  }, "-")), /*#__PURE__*/_react.default.createElement("div", {
+    className: "circle"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "circle-out"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "timer"
+  }, timerMinutes, ":", timerSeconds), /*#__PURE__*/_react.default.createElement("div", {
+    className: "circle-in"
+  }))));
+}
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","../css/style.css":"css/style.css"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
+var _reactDom = _interopRequireWildcard(require("react-dom"));
 
-var _hello = require("./components/hello");
+require("./css/style.css");
+
+var _Pomodoro = require("./components/Pomodoro");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_hello.Hello, null), document.querySelector("#app"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/hello":"components/hello.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function App() {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "App"
+  }, /*#__PURE__*/_react.default.createElement(_Pomodoro.Pomodoro, null));
+}
+
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector("#app"));
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./css/style.css":"css/style.css","./components/Pomodoro":"components/Pomodoro.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -29623,7 +29859,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45477" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34759" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

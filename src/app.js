@@ -1,9 +1,35 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM, { render } from "react-dom";
+import "./css/style.css";
+import { Pomodoro } from "./components/Pomodoro";
 
-import {Hello} from "./components/hello";
+
+function App (){
+    return ( 
+        <div className="App">
+            <Pomodoro />
+        </div>
+    );
+}
 
 ReactDOM.render(
-    <Hello />,
+    <App />,
     document.querySelector("#app")
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
