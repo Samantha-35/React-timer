@@ -16,7 +16,7 @@
 ### This exercice aimed to :
 * get familiar with React
 * get familiar with Babel
-* 
+* get familiar with Netlify
 
 ## Show your support
 
